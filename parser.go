@@ -8,17 +8,32 @@ import (
 
 type deployment struct {
 	Spec struct {
-		Containers []struct {
-			Name    string `yaml:"name"`
-			EnvVars []struct {
-				Key   string `yaml:"name"`
-				Value string `yaml:"value"`
-			} `yaml:"env"`
-		} `yaml:"containers"`
+		Containers []container `yaml:"containers"`
 	} `yaml:"spec"`
 }
 
-func parse(file []byte) ([]map[string]string, error) {
+type deploymentWithTemplate struct {
+	Spec struct {
+		Replicas string `yaml:"replicas"`
+		Template struct {
+			Spec struct {
+				Containers []container `yaml:"containers"`
+			} `yaml:"spec"`
+		} `yaml:"template"`
+	} `yaml:"spec"`
+}
+
+type container struct {
+	Name    string    `yaml:"name"`
+	EnvVars []envVars `yaml:"env"`
+}
+
+type envVars struct {
+	Key   string `yaml:"name"`
+	Value string `yaml:"value"`
+}
+
+func parseDeployment(file []byte) ([]map[string]string, error) {
 	data := deployment{}
 
 	if err := yaml.Unmarshal(file, &data); err != nil {
@@ -28,6 +43,27 @@ func parse(file []byte) ([]map[string]string, error) {
 
 	variables := []map[string]string{}
 	for _, container := range data.Spec.Containers {
+		vars := map[string]string{}
+
+		for _, envVar := range container.EnvVars {
+			vars[envVar.Key] = envVar.Value
+		}
+		variables = append(variables, vars)
+	}
+
+	return variables, nil
+}
+
+func parseDeploymentWithTemplate(file []byte) ([]map[string]string, error) {
+	data := deploymentWithTemplate{}
+
+	if err := yaml.Unmarshal(file, &data); err != nil {
+		log.Printf("could not unmarshal: %q", err.Error())
+		return []map[string]string{}, err
+	}
+
+	variables := []map[string]string{}
+	for _, container := range data.Spec.Template.Spec.Containers {
 		vars := map[string]string{}
 
 		for _, envVar := range container.EnvVars {
