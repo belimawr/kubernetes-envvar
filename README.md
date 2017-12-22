@@ -17,11 +17,25 @@ different environment (e.g. staging).
 So I decided to write this wee tool to do the "monkey job" of reading
 the deployment.yaml and exporting the environment variables
 
+Usage
+-----
+
+```sh
+$ ./kubernetes-envvar <type: d|t> <filepath> <command and args>
+```
+Arguments:
+* Type: It's either `t` or `d` depending on the structure of the yaml file.
+  * `d` is for the simpler yaml (see [example/deployment.yaml](example/deployment.yaml))
+  * `t` is for a helm yaml file (see [example/deploymentWithTemplate.yaml](example/deploymentWithTemplate.yaml))
+* Filepath: Is the path to the Kubernetes' deployment.yaml
+* Command: Is the command and it's args.
+
 TODO
 ----
 
 * Remove ugly workaround helm templates
 * Write unit tests
+* Parse/replace environment variables on the command and it's arguments
 * Parse deployment.yaml in a more generic way
 * Review the logging/debug messages
 * Return the return code of the command run
