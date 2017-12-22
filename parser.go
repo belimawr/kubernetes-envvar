@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"regexp"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -58,8 +59,16 @@ func parseDeploymentWithTemplate(file []byte) ([]map[string]string, error) {
 	data := deploymentWithTemplate{}
 
 	if err := yaml.Unmarshal(file, &data); err != nil {
-		log.Printf("could not unmarshal: %q", err.Error())
-		return []map[string]string{}, err
+		// Ungly workaround helm templates
+		log.Printf("got an error parsing helm file, trying to clean it...")
+		re := regexp.MustCompile(`{{.*}}`)
+		cleanFile := re.ReplaceAllString(string(file), "")
+
+		if err := yaml.Unmarshal([]byte(cleanFile), &data); err != nil {
+			log.Printf("could not unmarshal: %q", err.Error())
+			return []map[string]string{}, err
+		}
+		log.Print("done!")
 	}
 
 	variables := []map[string]string{}

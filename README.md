@@ -20,6 +20,7 @@ the deployment.yaml and exporting the environment variables
 TODO
 ----
 
+* Remove ugly workaround helm templates
 * Write unit tests
 * Parse deployment.yaml in a more generic way
 * Review the logging/debug messages
