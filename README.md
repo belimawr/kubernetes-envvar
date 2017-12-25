@@ -1,5 +1,8 @@
 Kubernetes-envvar
 =================
+[![Build Status](https://travis-ci.org/belimawr/kubernetes-envvar.svg?branch=master)](https://travis-ci.org/belimawr/kubernetes-envvar)
+
+
 Small cli application to read environment variables from
 Kubernetes' deployment.yaml, export them and run a command
 in the "new" environment
