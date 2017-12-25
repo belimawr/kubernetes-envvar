@@ -1,7 +1,8 @@
 Kubernetes-envvar
 =================
 [![Build Status](https://travis-ci.org/belimawr/kubernetes-envvar.svg?branch=master)](https://travis-ci.org/belimawr/kubernetes-envvar)
-
+[![GoDoc](https://godoc.org/github.com/belimawr/kubernetes-envvar?status.svg)](https://godoc.org/github.com/belimawr/kubernetes-envvar)
+[![Go Report Card](https://goreportcard.com/badge/github.com/belimawr/kubernetes-envvar)](https://goreportcard.com/report/github.com/belimawr/kubernetes-envvar)
 
 Small cli application to read environment variables from
 Kubernetes' deployment.yaml, export them and run a command
@@ -37,7 +38,6 @@ TODO
 ----
 
 * Remove ugly workaround helm templates
-* Write unit tests
 * Parse/replace environment variables on the command and it's arguments
 * Parse deployment.yaml in a more generic way
 * Review the logging/debug messages
