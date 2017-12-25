@@ -1,6 +1,7 @@
 Kubernetes-envvar
 =================
 [![Build Status](https://travis-ci.org/belimawr/kubernetes-envvar.svg?branch=master)](https://travis-ci.org/belimawr/kubernetes-envvar)
+[![Coverage Status](https://coveralls.io/repos/github/belimawr/kubernetes-envvar/badge.svg?branch=master)](https://coveralls.io/github/belimawr/kubernetes-envvar?branch=master)
 [![GoDoc](https://godoc.org/github.com/belimawr/kubernetes-envvar?status.svg)](https://godoc.org/github.com/belimawr/kubernetes-envvar)
 [![Go Report Card](https://goreportcard.com/badge/github.com/belimawr/kubernetes-envvar)](https://goreportcard.com/report/github.com/belimawr/kubernetes-envvar)
 
